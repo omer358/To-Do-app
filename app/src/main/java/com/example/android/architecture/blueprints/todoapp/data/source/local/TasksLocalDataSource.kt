@@ -16,7 +16,6 @@
 package com.example.android.architecture.blueprints.todoapp.data.source.local
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Result.Error
 import com.example.android.architecture.blueprints.todoapp.data.Result.Success
@@ -25,6 +24,7 @@ import com.example.android.architecture.blueprints.todoapp.data.source.TasksData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import androidx.lifecycle.map as map1
 
 /**
  * Concrete implementation of a data source as a db.
@@ -35,13 +35,13 @@ class TasksLocalDataSource internal constructor(
 ) : TasksDataSource {
 
     override fun observeTasks(): LiveData<Result<List<Task>>> {
-        return tasksDao.observeTasks().map {
+        return tasksDao.observeTasks().map1 {
             Success(it)
         }
     }
 
     override fun observeTask(taskId: String): LiveData<Result<Task>> {
-        return tasksDao.observeTaskById(taskId).map {
+        return tasksDao.observeTaskById(taskId).map1 {
             Success(it)
         }
     }
